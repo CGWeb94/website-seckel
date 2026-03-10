@@ -3,3 +3,4 @@ Domain:         seckel-heizungen.de
 GitHub-Repo:    github.com/CGWeb94/website-seckel
 Vercel-Projekt: website-seckel
 Canonical-URL:  https://seckel-heizungen.de
+Vercel-URL:     https://website-seckel.vercel.app
