@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seckel GmbH – Sanitär & Heizung in Köln</title>
+  <meta name="description" content="Seckel GmbH – Ihr Sanitär- und Heizungsexperte in Köln. Über 30 Jahre Erfahrung, zuverlässig, freundlich und kompetent. Jetzt anrufen: 0221 5903354." />
+  <meta name="keywords" content="Sanitärinstallateur Köln, Heizungsbau Köln, Fußbodenheizung Köln, Wärmepumpe Köln, Sanitär Köln, Heizung Reparatur Köln, Seckel GmbH, Notdienst Sanitär Köln, Badsanierung Köln" />
+  <meta property="og:title" content="Seckel GmbH – Sanitär & Heizung in Köln" />
+  <meta property="og:description" content="Ihr zuverlässiger Sanitär- und Heizungsexperte in Köln. Über 30 Jahre Erfahrung, 4.7★ bei Google." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seckel-heizungen.de" />
+  <link rel="canonical" href="https://seckel-heizungen.de" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e3a8a',
+              900: '#1e2e6e',
+            }
+          },
+          fontFamily: {
+            display: ['Georgia', 'Times New Roman', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #1e293b;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 20px rgba(30,58,138,0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; }
+      #hero-image-wrap { display: none; }
+    }
+
+    #hero-image-wrap {
+      position: relative;
+      overflow: hidden;
+      clip-path: inset(0 100% 0 0);
+    }
+    #hero-image-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(30,58,138,0.55) 0%, rgba(30,58,138,0.15) 100%);
+    }
+
+    /* ── FEATURES / LEISTUNGEN ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      border: 1px solid #e2e8f0;
+    }
+    @media (min-width: 640px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .feature-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .feature-card {
+      position: relative;
+      padding: 2.5rem 2rem;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.2s;
+    }
+    .feature-card:hover { background: #f8faff; }
+
+    .feature-gradient {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    /* Top row: gradient top→bottom */
+    .feature-card:nth-child(-n+4) .feature-gradient {
+      background: linear-gradient(to bottom, rgba(59,130,246,0.07) 0%, transparent 100%);
+    }
+    /* Bottom row: gradient bottom→top */
+    .feature-card:nth-child(n+5) .feature-gradient {
+      background: linear-gradient(to top, rgba(59,130,246,0.07) 0%, transparent 100%);
+    }
+    .feature-card:hover .feature-gradient { opacity: 1; }
+
+    .feature-accent {
+      width: 3px;
+      height: 1.5rem;
+      background: #cbd5e1;
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+      transition: height 0.2s ease, background 0.2s ease;
+    }
+    .feature-card:hover .feature-accent {
+      height: 2rem;
+      background: #3b82f6;
+    }
+    .feature-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+    .feature-card:hover .feature-title { transform: translateX(4px); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-mask {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    }
+    .testimonials-track {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      animation: scrollUp linear infinite;
+    }
+    @keyframes scrollUp {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    /* ── CTA BUTTON ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1e3a8a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.875rem 2rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 4px 14px rgba(30,58,138,0.25), 0 1px 3px rgba(30,58,138,0.15);
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      box-shadow: 0 6px 20px rgba(30,58,138,0.35), 0 2px 6px rgba(30,58,138,0.2);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible {
+      outline: 3px solid #3b82f6;
+      outline-offset: 3px;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 2px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.875rem 2rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+      transform: translateY(-1px);
+    }
+    .btn-outline:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    /* ── CONTACT CHIP ── */
+    .contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.85);
+      padding: 0.375rem 0.875rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .contact-chip:hover {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .contact-chip:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    /* ── NAV LINKS ── */
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      padding: 0.25rem 0;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 100%;
+      height: 2px;
+      background: #60a5fa;
+      transition: right 0.2s ease;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { right: 0; }
+
+    #navbar.scrolled .nav-link { color: #334155; }
+    #navbar.scrolled .nav-link:hover { color: #1e3a8a; }
+    #navbar.scrolled .nav-link::after { background: #1e3a8a; }
+
+    .nav-cta {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #fff;
+      background: #1e3a8a;
+      padding: 0.5rem 1.25rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .nav-cta:focus-visible { outline: 3px solid #3b82f6; outline-offset: 3px; }
+
+    #navbar.scrolled .nav-cta { background: #1e3a8a; }
+
+    /* ── BURGER ── */
+    #burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0.5rem;
+      background: none;
+      border: none;
+    }
+    @media (max-width: 768px) { #burger { display: flex; } #nav-links { display: none; } }
+
+    #burger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    #navbar.scrolled #burger span { background: #1e293b; }
+
+    #burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #burger.open span:nth-child(2) { opacity: 0; }
+    #burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    #mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+    }
+    #mobile-menu.open { display: flex; }
+    .mobile-nav-link {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1e293b;
+      text-decoration: none;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid #f1f5f9;
+      transition: color 0.2s;
+    }
+    .mobile-nav-link:hover { color: #1e3a8a; }
+
+    /* ── STATS ── */
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      background: #f8faff;
+      border: 1px solid #dbeafe;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #3b82f6;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 0.3rem 0.875rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    /* ── CARD SHADOW ── */
+    .review-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      box-shadow:
+        0 4px 6px rgba(30,58,138,0.04),
+        0 10px 30px rgba(30,58,138,0.07),
+        0 1px 3px rgba(0,0,0,0.03);
+      max-width: 22rem;
+    }
+
+    /* ── SCROLL REVEAL (initially hidden via JS only) ── */
+    .reveal { }
+
+    /* ── GRAIN TEXTURE ── */
+    .grain-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════ NAVIGATION ═══════════════════════════ -->
+<nav id="navbar" aria-label="Hauptnavigation">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#hero" class="flex items-center gap-2 no-underline" aria-label="Seckel GmbH – Startseite">
+      <div style="width:36px;height:36px;background:#1e3a8a;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-0.01em;" id="nav-logo-text">Seckel GmbH</span>
+    </a>
+
+    <!-- Desktop Links -->
+    <div id="nav-links" class="hidden md:flex items-center gap-8">
+      <a href="#leistungen" class="nav-link">Leistungen</a>
+      <a href="#ueber-uns" class="nav-link">Über uns</a>
+      <a href="#bewertungen" class="nav-link">Bewertungen</a>
+      <a href="#kontakt" class="nav-link">Kontakt</a>
+    </div>
+
+    <!-- CTA + Burger -->
+    <div class="flex items-center gap-4">
+      <a href="tel:02215903354" class="nav-cta hidden md:block">Jetzt anrufen</a>
+      <button id="burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" role="menu">
+    <a href="#leistungen" class="mobile-nav-link" role="menuitem">Leistungen</a>
+    <a href="#ueber-uns" class="mobile-nav-link" role="menuitem">Über uns</a>
+    <a href="#bewertungen" class="mobile-nav-link" role="menuitem">Bewertungen</a>
+    <a href="#kontakt" class="mobile-nav-link" role="menuitem">Kontakt</a>
+    <a href="tel:02215903354" class="btn-primary" style="justify-content:center;" role="menuitem">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.11 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Jetzt anrufen
+    </a>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section id="hero" aria-labelledby="hero-heading">
+
+  <!-- Left: Content -->
+  <div style="background:linear-gradient(135deg,#1e2e6e 0%,#1e3a8a 60%,#1d4ed8 100%);position:relative;display:flex;align-items:center;padding:8rem 3rem 4rem;">
+    <div class="grain-overlay"></div>
+    <!-- Radial glow -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%, rgba(96,165,250,0.2) 0%, transparent 60%);pointer-events:none;"></div>
+
+    <div id="hero-content" style="position:relative;max-width:540px;">
+      <!-- Badge -->
+      <div id="hero-badge" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:9999px;padding:0.375rem 1rem;margin-bottom:1.5rem;">
+        <!-- Gold accent bar -->
+        <span style="width:24px;height:3px;background:linear-gradient(90deg,#fbbf24,#f59e0b);border-radius:2px;display:block;"></span>
+        <span style="font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Sanitär &amp; Heizung · Köln</span>
+      </div>
+
+      <!-- Heading -->
+      <h1 id="hero-heading" style="font-family:'Playfair Display',serif;font-size:clamp(2.25rem,4vw,3.25rem);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-0.03em;margin:0 0 1.25rem;" id="hero-title">
+        Ihr Experte für<br/>Sanitär &amp; Heizung<br/>
+        <span style="color:#93c5fd;">in Köln</span>
+      </h1>
+
+      <!-- Subtext -->
+      <p id="hero-sub" style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.7;margin:0 0 2rem;">
+        Über 30 Jahre Erfahrung, über 4.700 Kundenbewertungen und ein Team, das sich persönlich um Ihr Anliegen kümmert — zuverlässig, kompetent und termingerecht.
+      </p>
+
+      <!-- CTAs -->
+      <div id="hero-ctas" style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
+        <a href="tel:02215903354" class="btn-primary" aria-label="Jetzt anrufen: 0221 5903354">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.11 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Jetzt anrufen
+        </a>
+        <a href="#leistungen" class="btn-outline">
+          Unsere Leistungen
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Contact chips -->
+      <div id="hero-chips" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <a href="tel:02215903354" class="contact-chip" aria-label="Anrufen">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.11 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          0221 5903354
+        </a>
+        <a href="mailto:h.seckel@seckel-heizungen.de" class="contact-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          h.seckel@seckel-heizungen.de
+        </a>
+        <span class="contact-chip" aria-label="Adresse">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Johannesstraße 26, 50767 Köln
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Image -->
+  <div id="hero-image-wrap" aria-hidden="true">
+    <img src="content/company_images/shutterstock_2699005611.jpg" alt="Sanitär und Heizung Fachbetrieb" />
+    <div class="hero-overlay"></div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════ LEISTUNGEN ═══════════════════════════ -->
+<section id="leistungen" aria-labelledby="leistungen-heading" style="padding:6rem 0;background:#fff;">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <div class="section-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Unsere Leistungen
+      </div>
+      <h2 id="leistungen-heading" style="font-size:clamp(2rem,3.5vw,2.75rem);font-weight:700;color:#1e293b;letter-spacing:-0.03em;margin:0 0 1rem;">
+        Alles aus einer Hand
+      </h2>
+      <p style="font-size:1.05rem;color:#64748b;max-width:600px;margin:0 auto;line-height:1.7;">
+        Von der Sanitärinstallation bis zur modernen Wärmepumpe — wir bieten Ihnen das komplette Spektrum für Ihr Zuhause.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="feature-grid" role="list">
+
+      <!-- 1 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Sanitärinstallation</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Fachgerechte Installation von Wasserleitungen, Armaturen und Sanitäranlagen.</p>
+      </div>
+
+      <!-- 2 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M12 2c0 0-4 4-4 8a4 4 0 008 0c0-4-4-8-4-8z"/><path d="M12 22v-4"/><path d="M9 18h6"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Heizungsanlagen</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Installation, Wartung und Modernisierung von Gas-, Öl- und Hybridheizungen.</p>
+      </div>
+
+      <!-- 3 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18M15 3v18M3 15h18"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Fußbodenheizung</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Planung und Verlegung von Warm- und Kaltwasser-Fußbodenheizungen.</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Wärmepumpen</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Energieeffiziente Luft-Wasser- und Erdwärmepumpen für nachhaltiges Heizen.</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Notdienst</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Schnelle Hilfe bei Rohrbruch, Heizungsausfall und anderen Notfällen.</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Wartung &amp; Reparatur</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Regelmäßige Inspektion und Reparatur für langfristige Betriebssicherheit.</p>
+      </div>
+
+      <!-- 7 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M4 22V12c0-2.21 3.58-4 8-4s8 1.79 8 4v10"/><path d="M4 12c0 2.21 3.58 4 8 4s8-1.79 8-4"/><path d="M10 17.5a11.56 11.56 0 004 0"/><line x1="12" y1="2" x2="12" y2="8"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Badsanierung</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Komplette Badsanierungen — von der Planung bis zur schlüsselfertigen Übergabe.</p>
+      </div>
+
+      <!-- 8 -->
+      <div class="feature-card" role="listitem">
+        <div class="feature-gradient"></div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M2 12h20M12 2v20M17 7l5 5-5 5M7 7L2 12l5 5"/></svg>
+        <div class="feature-accent"></div>
+        <div class="feature-title">Rohrinstallation</div>
+        <p style="font-size:0.875rem;color:#64748b;line-height:1.6;margin:0;">Neu- und Umbauarbeiten an Trinkwasser-, Heizungs- und Abwasserleitungen.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ ÜBER UNS ═══════════════════════════ -->
+<section id="ueber-uns" aria-labelledby="ueber-uns-heading" style="padding:6rem 0;background:#f8faff;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+
+      <!-- Image -->
+      <div class="reveal" style="position:relative;">
+        <div style="border-radius:1.5rem;overflow:hidden;aspect-ratio:4/5;box-shadow:0 20px 60px rgba(30,58,138,0.15),0 4px 16px rgba(30,58,138,0.08);">
+          <img src="content/company_images/shutterstock_2633317127.jpg" alt="Seckel GmbH – Fachbetrieb in Köln" style="width:100%;height:100%;object-fit:cover;" loading="lazy"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(30,58,138,0.35) 0%,transparent 60%);border-radius:1.5rem;"></div>
+        </div>
+        <!-- Floating badge -->
+        <div style="position:absolute;bottom:2rem;left:-1.5rem;background:#fff;border-radius:1rem;padding:1rem 1.5rem;box-shadow:0 8px 30px rgba(30,58,138,0.12);display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:44px;height:44px;background:#eff6ff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:1.1rem;color:#1e293b;">4,7 ★</div>
+            <div style="font-size:0.78rem;color:#64748b;">über 4.700 Bewertungen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="reveal">
+        <div class="section-badge">Über uns</div>
+        <h2 id="ueber-uns-heading" style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#1e293b;letter-spacing:-0.03em;margin:0 0 1.25rem;line-height:1.2;">
+          Seit über 30 Jahren Ihr Partner in Köln
+        </h2>
+        <p style="font-size:1.05rem;color:#475569;line-height:1.75;margin:0 0 1.25rem;">
+          Die Seckel GmbH steht für handwerkliche Qualität, persönlichen Einsatz und langfristige Kundenbeziehungen. Herr Seckel und sein Team kümmern sich persönlich um jedes Anliegen — von der ersten Beratung bis zur sauberen Fertigstellung.
+        </p>
+        <p style="font-size:1.05rem;color:#475569;line-height:1.75;margin:0 0 2.5rem;">
+          Ob Heizungsanlage, Badsanierung oder Notdienst: Wir sind für Sie da — auch wenn andere Firmen absagen oder vertrösten.
+        </p>
+
+        <!-- Stats -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <div class="stat-card">
+            <div style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700;color:#1e3a8a;margin-bottom:0.25rem;">30+</div>
+            <div style="font-size:0.8rem;color:#64748b;font-weight:500;">Jahre Erfahrung</div>
+          </div>
+          <div class="stat-card">
+            <div style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700;color:#1e3a8a;margin-bottom:0.25rem;">4.7★</div>
+            <div style="font-size:0.8rem;color:#64748b;font-weight:500;">bei Google</div>
+          </div>
+          <div class="stat-card">
+            <div style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700;color:#1e3a8a;margin-bottom:0.25rem;">4.700+</div>
+            <div style="font-size:0.8rem;color:#64748b;font-weight:500;">Bewertungen</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ TESTIMONIALS ═══════════════════════════ -->
+<section id="bewertungen" aria-labelledby="bewertungen-heading" style="padding:6rem 0;background:#fff;overflow:hidden;">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <div class="section-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Kundenstimmen
+      </div>
+      <h2 id="bewertungen-heading" style="font-size:clamp(2rem,3.5vw,2.75rem);font-weight:700;color:#1e293b;letter-spacing:-0.03em;margin:0 0 1rem;">
+        Was unsere Kunden sagen
+      </h2>
+      <p style="font-size:1.05rem;color:#64748b;max-width:500px;margin:0 auto;line-height:1.7;">
+        Über 4.700 Bewertungen sprechen für sich.
+      </p>
+    </div>
+
+    <!-- 3-column testimonials -->
+    <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-height:740px;overflow:hidden;" class="testimonials-mask" id="testimonials-grid">
+
+      <!-- Column 1 (all screens) -->
+      <div style="display:flex;flex-direction:column;gap:1rem;align-items:center;">
+        <div class="testimonials-track" style="animation-duration:18s;" id="col1">
+
+          <!-- Card -->
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne">
+              <span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span>
+            </div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Firma Seckel GmbH überzeugt durch hohe fachliche Kompetenz, Zuverlässigkeit und ein sehr freundliches Team. Alle Arbeiten wurden sauber und termingerecht ausgeführt."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">IS</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Ingo Schuhmacher</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"12 Jahre war niemand in der Lage meine Heizungsanlage zu reparieren. Erst seit die Firma Seckel bei uns war, funktioniert sie wieder. Absolut großartig!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">G</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Rezensent von golocal</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">golocal Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Nach der Überschwemmung vom Juli 2021 hat die Firma Seckel uns verständnisvoll, schnell, hochmotiviert und zuverlässig beim Wiederaufbau unserer Bodenheizung geholfen. Mega!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">PU</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Petra &amp; Uwe</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">golocal Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- duplicate for infinite loop -->
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Firma Seckel GmbH überzeugt durch hohe fachliche Kompetenz, Zuverlässigkeit und ein sehr freundliches Team. Alle Arbeiten wurden sauber und termingerecht ausgeführt."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">IS</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Ingo Schuhmacher</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"12 Jahre war niemand in der Lage meine Heizungsanlage zu reparieren. Erst seit die Firma Seckel bei uns war, funktioniert sie wieder. Absolut großartig!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">G</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Rezensent von golocal</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">golocal Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Nach der Überschwemmung vom Juli 2021 hat die Firma Seckel uns verständnisvoll, schnell, hochmotiviert und zuverlässig beim Wiederaufbau unserer Bodenheizung geholfen. Mega!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">PU</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Petra &amp; Uwe</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">golocal Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /col1 track -->
+      </div>
+
+      <!-- Column 2 (md+) -->
+      <div style="display:none;flex-direction:column;gap:1rem;align-items:center;" id="col2-wrapper">
+        <div class="testimonials-track" style="animation-duration:22s;" id="col2">
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Sehr zuverlässiger Betrieb! Herr Seckel kümmerte sich persönlich um mein Anliegen. Schnelle Terminvergabe, freundliches Auftreten — alles bestens!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">MD</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Martin Danke</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Firma Seckel GmbH hat uns eine Luft-Wasser-Wärmepumpe eingebaut. Alles funktioniert super, der Einbau ging schnell, wir sind sehr zufrieden!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">SP</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">S P</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Ich bin mit Firma Seckel seit knapp 20 Jahren super zufrieden. Selbst am ersten Weihnachtstag, wenn man in Not ist, wird einem vom Chef persönlich geholfen."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">MO</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">MO</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- duplicate -->
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Sehr zuverlässiger Betrieb! Herr Seckel kümmerte sich persönlich um mein Anliegen. Schnelle Terminvergabe, freundliches Auftreten — alles bestens!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">MD</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Martin Danke</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Firma Seckel GmbH hat uns eine Luft-Wasser-Wärmepumpe eingebaut. Alles funktioniert super, der Einbau ging schnell, wir sind sehr zufrieden!"</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">SP</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">S P</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Ich bin mit Firma Seckel seit knapp 20 Jahren super zufrieden. Selbst am ersten Weihnachtstag, wenn man in Not ist, wird einem vom Chef persönlich geholfen."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">MO</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">MO</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Column 3 (lg+) -->
+      <div style="display:none;flex-direction:column;gap:1rem;align-items:center;" id="col3-wrapper">
+        <div class="testimonials-track" style="animation-duration:15s;" id="col3">
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Termine die mit Herrn Seckel vereinbart wurden, sind trotz der aktuellen Lage eingehalten worden. Ich kann das Unternehmen absolut empfehlen."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">BW</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">B W</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Sehr nettes Team! Gute Leistung und schnelle Hilfe in Notsituationen! Würde ich wieder beauftragen."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">JK</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Jennifer K</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Firma Seckel empfehle ich sehr gerne weiter. Herr Seckel hat sich persönlich schnellstens gekümmert, die Arbeiten wurden direkt ausgeführt, sehr freundlich."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">GR</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Guido Rielke</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- duplicate -->
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Termine die mit Herrn Seckel vereinbart wurden, sind trotz der aktuellen Lage eingehalten worden. Ich kann das Unternehmen absolut empfehlen."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">BW</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">B W</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Sehr nettes Team! Gute Leistung und schnelle Hilfe in Notsituationen! Würde ich wieder beauftragen."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">JK</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Jennifer K</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div style="display:flex;gap:0.25rem;margin-bottom:0.75rem;" aria-label="5 Sterne"><span style="color:#f59e0b;font-size:0.9rem;">★★★★★</span></div>
+            <p style="font-size:0.9rem;color:#334155;line-height:1.65;margin:0 0 1rem;">"Die Firma Seckel empfehle ich sehr gerne weiter. Herr Seckel hat sich persönlich schnellstens gekümmert, die Arbeiten wurden direkt ausgeführt, sehr freundlich."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#1e3a8a;">GR</div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:#1e293b;">Guido Rielke</div>
+                <div style="font-size:0.75rem;color:#94a3b8;">Google Bewertung</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /testimonials-grid -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ KONTAKT ═══════════════════════════ -->
+<section id="kontakt" aria-labelledby="kontakt-heading" style="padding:6rem 0;background:#f8faff;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+
+      <!-- Left: Info -->
+      <div class="reveal">
+        <div class="section-badge">Kontakt</div>
+        <h2 id="kontakt-heading" style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#1e293b;letter-spacing:-0.03em;margin:0 0 1.25rem;line-height:1.2;">
+          Wir sind für Sie da
+        </h2>
+        <p style="font-size:1.05rem;color:#475569;line-height:1.75;margin:0 0 2.5rem;">
+          Nehmen Sie Kontakt auf — ob für einen Termin, eine Beratung oder im Notfall. Wir melden uns schnell zurück.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:44px;height:44px;min-width:44px;background:#eff6ff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;color:#1e293b;margin-bottom:0.25rem;">Adresse</div>
+              <div style="color:#64748b;font-size:0.95rem;">Johannesstraße 26<br/>50767 Köln</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:44px;height:44px;min-width:44px;background:#eff6ff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.11 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;color:#1e293b;margin-bottom:0.25rem;">Telefon</div>
+              <a href="tel:02215903354" style="color:#1e3a8a;font-size:0.95rem;text-decoration:none;font-weight:500;">0221 5903354</a>
+              <div style="color:#64748b;font-size:0.8rem;margin-top:0.125rem;">Fax: 0221 5903363</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:44px;height:44px;min-width:44px;background:#eff6ff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;color:#1e293b;margin-bottom:0.25rem;">E-Mail</div>
+              <a href="mailto:h.seckel@seckel-heizungen.de" style="color:#1e3a8a;font-size:0.95rem;text-decoration:none;font-weight:500;">h.seckel@seckel-heizungen.de</a>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:44px;height:44px;min-width:44px;background:#eff6ff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;color:#1e293b;margin-bottom:0.25rem;">Öffnungszeiten</div>
+              <div style="color:#64748b;font-size:0.95rem;">Mo–Fr: 07:00 – 16:30 Uhr</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: Image + CTA card -->
+      <div class="reveal">
+        <div style="border-radius:1.5rem;overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 60px rgba(30,58,138,0.12),0 4px 16px rgba(30,58,138,0.06);margin-bottom:1.5rem;">
+          <img src="content/company_images/shutterstock_2566757213.jpg" alt="Seckel GmbH Werkstatt Köln" style="width:100%;height:100%;object-fit:cover;" loading="lazy"/>
+        </div>
+        <a href="tel:02215903354" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1rem;" aria-label="Jetzt Seckel GmbH anrufen">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.11 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          0221 5903354 – Jetzt anrufen
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer style="background:#0f172a;color:#94a3b8;padding:3rem 0;" role="contentinfo">
+  <div class="max-w-7xl mx-auto px-6">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2rem;border-bottom:1px solid #1e293b;padding-bottom:2rem;margin-bottom:2rem;">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div style="width:36px;height:36px;background:#1e3a8a;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f1f5f9;">Seckel GmbH</span>
+      </div>
+      <nav aria-label="Footer Navigation">
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem;">
+          <a href="#leistungen" style="color:#94a3b8;text-decoration:none;font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94a3b8'">Leistungen</a>
+          <a href="#ueber-uns" style="color:#94a3b8;text-decoration:none;font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94a3b8'">Über uns</a>
+          <a href="#bewertungen" style="color:#94a3b8;text-decoration:none;font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94a3b8'">Bewertungen</a>
+          <a href="#kontakt" style="color:#94a3b8;text-decoration:none;font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94a3b8'">Kontakt</a>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;font-size:0.8rem;">
+      <span>© 2024 Seckel GmbH · Johannesstraße 26 · 50767 Köln</span>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="#" style="color:#94a3b8;text-decoration:none;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94a3b8'">Impressum</a>
+        <a href="#" style="color:#94a3b8;text-decoration:none;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94a3b8'">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════ SCRIPTS ═══════════════════════════ -->
+<script>
+  // ── Register ScrollTrigger ──
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Navbar scroll behaviour ──
+  const navbar = document.getElementById('navbar');
+  const logoText = document.getElementById('nav-logo-text');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+      if (logoText) logoText.style.color = '#1e293b';
+    } else {
+      navbar.classList.remove('scrolled');
+      if (logoText) logoText.style.color = '#fff';
+    }
+  }, { passive: true });
+
+  // ── Burger menu ──
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    const isOpen = burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', isOpen.toString());
+  });
+  // Close on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ── Hero GSAP animations (set initial state in JS, never in CSS) ──
+  const heroItems = ['#hero-badge', '#hero-title', '#hero-sub', '#hero-ctas', '#hero-chips'];
+  heroItems.forEach(sel => {
+    gsap.set(sel, { opacity: 0, y: 30 });
+  });
+  gsap.set('#hero-image-wrap', { clipPath: 'inset(0 100% 0 0)' });
+
+  window.addEventListener('load', () => {
+    // Stagger hero content
+    gsap.to(heroItems, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power2.out',
+      delay: 0.2
+    });
+    // Image reveal
+    gsap.to('#hero-image-wrap', {
+      clipPath: 'inset(0 0% 0 0)',
+      duration: 1.2,
+      ease: 'circ.out',
+      delay: 0.3
+    });
+  });
+
+  // ── Scroll reveal for sections ──
+  document.querySelectorAll('.reveal').forEach(el => {
+    gsap.set(el, { opacity: 0, y: 40 });
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(el, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
+      }
+    });
+  });
+
+  // ── Feature cards scroll reveal ──
+  document.querySelectorAll('.feature-card').forEach((card, i) => {
+    gsap.set(card, { opacity: 0, y: 30 });
+    ScrollTrigger.create({
+      trigger: card,
+      start: 'top 90%',
+      onEnter: () => {
+        gsap.to(card, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: (i % 4) * 0.06 });
+      }
+    });
+  });
+
+  // ── Responsive testimonials columns ──
+  function updateTestimonialsLayout() {
+    const w = window.innerWidth;
+    const col2 = document.getElementById('col2-wrapper');
+    const col3 = document.getElementById('col3-wrapper');
+    const grid = document.getElementById('testimonials-grid');
+
+    if (w >= 1024) {
+      grid.style.gridTemplateColumns = '1fr 1fr 1fr';
+      col2.style.display = 'flex';
+      col3.style.display = 'flex';
+    } else if (w >= 768) {
+      grid.style.gridTemplateColumns = '1fr 1fr';
+      col2.style.display = 'flex';
+      col3.style.display = 'none';
+    } else {
+      grid.style.gridTemplateColumns = '1fr';
+      col2.style.display = 'none';
+      col3.style.display = 'none';
+    }
+  }
+  updateTestimonialsLayout();
+  window.addEventListener('resize', updateTestimonialsLayout, { passive: true });
+
+  // ── About section responsive grid ──
+  function updateAboutGrid() {
+    const aboutGrid = document.querySelector('#ueber-uns > div > div');
+    const kontaktGrid = document.querySelector('#kontakt > div > div');
+    if (!aboutGrid || !kontaktGrid) return;
+    if (window.innerWidth < 768) {
+      aboutGrid.style.gridTemplateColumns = '1fr';
+      kontaktGrid.style.gridTemplateColumns = '1fr';
+    } else {
+      aboutGrid.style.gridTemplateColumns = '1fr 1fr';
+      kontaktGrid.style.gridTemplateColumns = '1fr 1fr';
+    }
+  }
+  updateAboutGrid();
+  window.addEventListener('resize', updateAboutGrid, { passive: true });
+</script>
+
+</body>
+</html>
